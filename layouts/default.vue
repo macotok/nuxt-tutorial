@@ -1,5 +1,8 @@
 <template>
   <div>
+    <header class="Header">
+      Nuxt.jsプロジェクト
+    </header>
     <nuxt/>
   </div>
 </template>
@@ -51,5 +54,12 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+
+.Header {
+  font-size: 1.4em;
+  padding: 0.5em;
+  background-color: #24292e;
+  color: #fff;
 }
 </style>
