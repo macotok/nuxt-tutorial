@@ -57,7 +57,7 @@ Vue.jsのコンポーネントを格納。
 共通のレイアウト、個別のレイアウトなどを格納。
 ページコンポーネントからレイアウトを指定する。
 
-/layouts/top.vueを読み込む場合
+```/layouts/top.vue```を読み込む場合
 
 ```
 export default {
@@ -83,4 +83,9 @@ index.jsを生成すると自動的にVuexストアを有効にする。
 ```
 $ npm run dev
 ```
+
+## 参考サイト
+
+- [Nuxt.js、ファーストステップ
+](https://app.codegrid.net/series/2018-nuxtjs)
 
