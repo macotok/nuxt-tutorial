@@ -1,22 +1,86 @@
-# sample-app
+# Nuxt.js Totorial
 
-> Nuxt
+## 特徴
 
-## Build Setup
+ - Vue.jsでSSRを行うためのフレームワーク
+ - SSRした結果を静的ファイルとして書き出すこともできる
+ - webpackの設定がすでにされている
+ - Vue Routerの設定なしでルーティング設定ができる
 
-``` bash
-# install dependencies
-$ yarn install
+ ※SSR HTMLを構築する仕組みがサーバー側にもクライアント側にも備わっていること
 
-# serve with hot reload at localhost:3000
-$ yarn run dev
+## VueCLIとどちらを使う？
 
-# build for production and launch server
-$ yarn run build
-$ yarn start
+下記、実装する場合はNuxt.jsを使った方が楽
 
-# generate static project
-$ yarn run generate
+- ルーティングが必要
+- SSRが必要
+- 認証が必要
+
+## ディレクトリについて
+
+Nuxt.jsをinstallすると下記ディレクトリ/ファイルが作られる
+
+```
+├── nuxt.config.js
+├── assets
+├── static
+├── components
+├── layouts
+├── pages
+├── middleware
+├── plugins
+└── store
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+### nuxt.config.js
+
+Nuxt.jsアプリケーションの設定ファイル。
+plugins/middlewareなどの設定、webpackの拡張。
+
+### assets
+
+コンパイルされていないsassファイルやjsファイルを格納。
+vue-loaderによってコンパイルなどの処理が行われる。
+
+### static
+
+webpackを通す必要のないimgファイルなどの静的なファイルを格納。
+staticディレクトリにimage.pngを置いた場合、アプリケーション内では/image.pngで参照できる。
+
+### components
+
+Vue.jsのコンポーネントを格納。
+
+### layouts
+
+共通のレイアウト、個別のレイアウトなどを格納。
+ページコンポーネントからレイアウトを指定する。
+
+/layouts/top.vueを読み込む場合
+
+```
+export default {
+  layout: 'top',
+}
+```
+
+### pages
+
+pagesディレクトリの中の構造がそのままルーティングになる。
+
+- pagesディレクトリ直下のindex.vueが```/```
+- pages/users/index.vueが```/users
+- _user.vueのようにファイル名の先頭に```_```をつけると動的なルーティング
+
+### store
+
+vuexのファイルを格納。
+index.jsを生成すると自動的にVuexストアを有効にする。
+
+## 開発用ローカルサーバーの起動
+
+```
+$ npm run dev
+```
+
