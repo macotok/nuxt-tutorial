@@ -9,6 +9,18 @@
 
  ※SSR HTMLを構築する仕組みがサーバー側にもクライアント側にも備わっていること
 
+### プロジェクトの作成
+
+```
+$ npx create-nuxt-app sample-app
+```
+
+### 開発用ローカルサーバーの起動
+
+```
+$ npm run dev
+```
+
 ## VueCLIとどちらを使う？
 
 下記、実装する場合はNuxt.jsを使った方が楽
@@ -81,10 +93,46 @@ pagesディレクトリの中の構造がそのままルーティングになる
 - vuexのファイルを管理
 - index.jsを生成すると自動的にVuexストアを有効にする
 
-## 開発用ローカルサーバーの起動
+## asyncDataとfetchの機能
 
-```
-$ npm run dev
+### Vue.jsとNuxt.jsでAPI取得方法の違い
+
+- Nuxt.jsを使わない場合、Vueインスタンスの初期化時やコンポーネントのcreatedのフックなどでAPIを叩いて、Vuexのストアやコンポーネントのdataに格納
+- Nuxt.jsの場合は、ページコンポーネントが読み込まれる前に呼び出される```asyncData```と```fetch```というメソッドでページに必要なデータを読み込む
+- ```asyncData```と```fetch```はどちらもデータを取得するためのメソッド
+- ```asyncData```はコンポーネントのdataに非同期でデータをセットするときに使う
+- ```fetch```はVuexストアに```commit```や```dispatch```するときに使う
+
+### asyncData
+
+- asyncDataメソッド内でreturnしたものが、コンポーネントの```data```とマージされて```<template>```などで使える
+- ルートのVueインスタンスへの参照がappとして渡されるので、```app.$axios```でaxiosを参照
+- Vue DevToolsでコンポーネントのdataにAPIのレスポンスが確認できる
+
+``` javascript
+<template>
+  <div>
+    <div>
+      <img :src="avatar_url" width="100">
+      <span>
+        {{name}}
+      </span>
+    </div>
+    <a :href="html_url">
+      {{html_url}}
+    </a>
+  </div>
+</template>
+
+<script>
+  export default {
+    name: 'user',
+    async asyncData({ app, params }) {
+      const data = await app.$axios.$get(`https://api.github.com/users/${params.user}`)
+      return data;
+    }
+  }
+</script>
 ```
 
 ## 参考サイト
