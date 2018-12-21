@@ -35,29 +35,32 @@ Nuxt.jsをinstallすると下記ディレクトリ/ファイルが作られる
 
 ### nuxt.config.js
 
-Nuxt.jsアプリケーションの設定ファイル。
-plugins/middlewareなどの設定、webpackの拡張。
+- Nuxt.jsアプリケーションの設定ファイル
+- plugins/middlewareなどの設定、webpackの拡張
 
 ### assets
 
-コンパイルされていないsassファイルやjsファイルを格納。
-vue-loaderによってコンパイルなどの処理が行われる。
+- コンパイルされていないsassファイルやjsファイルを管理
+- vue-loaderによってコンパイルなどの処理が行われる
 
 ### static
 
-webpackを通す必要のないimgファイルなどの静的なファイルを格納。
-staticディレクトリにimage.pngを置いた場合、アプリケーション内では/image.pngで参照できる。
+- webpackを通す必要のないimgファイルなどの静的なファイルを管理
+- staticディレクトリにimage.pngを置いた場合、アプリケーション内では/image.pngで参照
 
 ### components
 
-Vue.jsのコンポーネントを格納。
+- Vue.jsのコンポーネントを管理
 
 ### layouts
 
-共通のレイアウト、個別のレイアウトなどを格納。
-ページコンポーネントからレイアウトを指定する。
+- 共通のレイアウト、個別のレイアウトなどを管理
+- ページコンポーネントからレイアウトを指定
+- ```create-nuxt-app```で作成するとデフォルトのレイアウトコンポーネントとして、```/layouts/default.vue```が作られる
+- 共通のレイアウトは```default.vue```、個別のレイアウトは作成
+- ```<nuxt />```はVue Routerの```<router-view>```にあたるもので、ルーティングにマッチしたページコンポーネントがレンダリングされる。そのためレイアウトコンポーネントには```<nuxt />```を書く
 
-```/layouts/top.vue```を読み込む場合
+個別レイアウトの```/layouts/top.vue```を読み込む場合
 
 ```
 export default {
@@ -75,10 +78,8 @@ pagesディレクトリの中の構造がそのままルーティングになる
 
 ### store
 
-vuexのファイルを格納。
-index.jsを生成すると自動的にVuexストアを有効にする。
-
-test
+- vuexのファイルを管理
+- index.jsを生成すると自動的にVuexストアを有効にする
 
 ## 開発用ローカルサーバーの起動
 
