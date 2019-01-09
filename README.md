@@ -148,6 +148,66 @@ pagesディレクトリの中の構造がそのままルーティングになる
 <nuxt-link to="/hoge">クライアントサイドでレンダリング</nuxt-link>
 ```
 
+## Vuexストアを使う
+
+- Nuxt.jsはVuexをnpmからinstallしなくても利用できる
+- Vuexストアを追加する方法はクラシックモードとモジュールモードの2つある
+
+### クラシックモード
+
+- ```store/index.js```で```new Vuex.Store()```を返すメソッドを```export```すると有効になる
+- ストアインスタンスを返すというルール以外は、通常Vuexを使う場合と同じ使い方
+
+``` javascript:store/index.js
+import Vuex from 'vuex';
+
+export default () => {
+  return new Vuex.Store({
+    state() {
+      return {
+        counter: 0,
+      }
+    }
+  })
+}
+```
+
+### モジュールモード
+
+- storeディレクトリ内のファイル構造によってnamespacedなモジュールを持ったストアを自動で構築する
+- ```store/index.js```で```state```や```mutations```などを```export```することで有効になる
+- モジュールは```store```ディレクトリにある```index.js```以外のファイルまたはディレクトリが自動的にモジュールして追加される
+
+``` javascript:store/index.js
+export const state = () => ({
+  counter: 0
+})
+```
+
+``` javascript:store/todos.js
+export const state = () => ({
+  items: []
+})
+```
+
+この2つのファイルからVuexストアが構築される
+
+``` javascript
+new Vuex.Store({
+  state: () => ({
+    counter: 0
+  }),
+  modules: {
+    namespaced: true,
+    todos: {
+      state: () => ({
+        items: []
+      })
+    }
+  }
+});
+```
+
 ## 参考サイト
 
 - [Nuxt.js、ファーストステップ
