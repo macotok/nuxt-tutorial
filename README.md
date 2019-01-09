@@ -69,7 +69,7 @@ Nuxt.jsをinstallすると下記ディレクトリ/ファイルが作られる
 - 共通のレイアウト、個別のレイアウトなどを管理
 - ページコンポーネントからレイアウトを指定
 - ```create-nuxt-app```で作成するとデフォルトのレイアウトコンポーネントとして、```/layouts/default.vue```が作られる
-- 共通のレイアウトは```default.vue```、個別のレイアウトは作成
+- 共通のレイアウトは```default.vue```、個別のレイアウトは新たに作成
 - ```<nuxt />```はVue Routerの```<router-view>```にあたるもので、ルーティングにマッチしたページコンポーネントがレンダリングされる。そのためレイアウトコンポーネントには```<nuxt />```を書く
 
 個別レイアウトの```/layouts/top.vue```を読み込む場合
@@ -85,7 +85,7 @@ export default {
 pagesディレクトリの中の構造がそのままルーティングになる。
 
 - pagesディレクトリ直下のindex.vueが```/```
-- pages/users/index.vueが```/users
+- pages/users/index.vueが```/users```
 - _user.vueのようにファイル名の先頭に```_```をつけると動的なルーティング
 
 ### store
@@ -95,7 +95,7 @@ pagesディレクトリの中の構造がそのままルーティングになる
 
 ## asyncDataとfetchの機能
 
-### Vue.jsとNuxt.jsでAPI取得方法の違い
+### Vue.jsとNuxt.jsでAPI取得方法が違う
 
 - Nuxt.jsを使わない場合、Vueインスタンスの初期化時やコンポーネントのcreatedのフックなどでAPIを叩いて、Vuexのストアやコンポーネントのdataに格納
 - Nuxt.jsの場合は、ページコンポーネントが読み込まれる前に呼び出される```asyncData```と```fetch```というメソッドでページに必要なデータを読み込む
