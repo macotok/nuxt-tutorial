@@ -108,6 +108,9 @@ pagesディレクトリの中の構造がそのままルーティングになる
 - asyncDataメソッド内でreturnしたものが、コンポーネントの```data```とマージされて```<template>```などで使える
 - ルートのVueインスタンスへの参照がappとして渡されるので、```app.$axios```でaxiosを参照
 - Vue DevToolsでコンポーネントのdataにAPIのレスポンスが確認できる
+- asyncDataとfetchはVueインスタンスが作成される前に実行されるメソッドなので```this```が存在しない
+- Vueインスタンスへの参照は```context```オブジェクトに格納されている(```app.$axios```の箇所)
+- asyncDataとfetchはともにSSR対応
 
 ``` javascript
 <template>
@@ -133,6 +136,16 @@ pagesディレクトリの中の構造がそのままルーティングになる
     }
   }
 </script>
+```
+
+## SSRについて
+
+- SSRはブラウザで最初にアクセスしたページのコンテンツをすばやくレンダリングするためのもの
+- Vue Routerによって遷移した場合はクライアントサイドでレンダリングされる
+
+``` html
+<a href="/hoge">サーバーサイドでレンダリング</a>
+<nuxt-link to="/hoge">クライアントサイドでレンダリング</nuxt-link>
 ```
 
 ## 参考サイト
