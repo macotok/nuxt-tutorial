@@ -1,4 +1,4 @@
-# Nuxt.js Totorial
+# Nuxt.js Tutorial
 
 ## 特徴
 
@@ -58,7 +58,7 @@ Nuxt.jsをinstallすると下記ディレクトリ/ファイルが作られる
 ### static
 
 - webpackを通す必要のないimgファイルなどの静的なファイルを管理
-- staticディレクトリにimage.pngを置いた場合、アプリケーション内では/image.pngで参照
+- staticディレクトリにimage.pngを置いた場合、アプリケーション内では```/image.png```で参照
 
 ### components
 
