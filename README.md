@@ -152,6 +152,7 @@ pagesディレクトリの中の構造がそのままルーティングになる
 
 - Nuxt.jsはVuexをnpmからinstallしなくても利用できる
 - Vuexストアを追加する方法はクラシックモードとモジュールモードの2つある
+- Vuexストア内に定義する```state```は必ずfunctionにする。SSRのときに意図しない```state```の共有が起こらないようにするため
 
 ### クラシックモード
 
@@ -177,6 +178,7 @@ export default () => {
 - storeディレクトリ内のファイル構造によってnamespacedなモジュールを持ったストアを自動で構築する
 - ```store/index.js```で```state```や```mutations```などを```export```することで有効になる
 - モジュールは```store```ディレクトリにある```index.js```以外のファイルまたはディレクトリが自動的にモジュールして追加される
+- 画面が複数ある場合はモジュールモードを使う
 
 ``` javascript:store/index.js
 export const state = () => ({
@@ -206,6 +208,74 @@ new Vuex.Store({
     }
   }
 });
+```
+
+### Vuexストアからstateを読み込む
+
+- ```store/index.js```に```state user```を設定
+- ```setUser```はページコンポーネントから取得
+- ```mapState```で```state user```を取得。templateで展開
+- fetchメソッドはstoreのデータをページコンポーネントのレンダリングより前に取得するメソッド
+- fetchメソッドで```Promise```を返す
+- ```store.commit```で```store```にデータを格納
+- データ取得の処理をVuexストアで行う場合は```store.dispatch```を```return```する
+
+#### store/index.js
+
+``` javascript:store/index.js
+export const state = () => ({
+  user: null,
+});
+
+export const mutations = {
+  setUser(state, user) {
+    state.user = user
+  }
+}
+```
+
+#### pages/_user.vue
+
+``` javascript:pages/_user.vue
+<template>
+  <div>
+    <div>
+      <img :src="user.avatar_url" width="100">
+      <span>
+        {{user.name}}
+      </span>
+    </div>
+    <a :href="user.html_url">
+      {{user.html_url}}
+    </a>
+  </div>
+</template>
+
+<script>
+  import { mapState } from 'vuex';
+  export default {
+    name: 'user',
+    async fetch({ app, params, store }) {
+      const user = await app.$axios.$get(
+        `https://api.github.com/users/${params.user}`
+      )
+      store.commit('setUser', user);
+    },
+    computed: {
+      ...mapState({
+        user: 'user',
+      })
+    }
+  }
+</script>
+```
+
+### dispatchを使う場合
+
+```
+fetch({ app, params, store}) {
+  return store.dispatch('fetchUser', params)
+}
 ```
 
 ## 参考サイト
